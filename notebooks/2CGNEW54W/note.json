@@ -1,0 +1,140 @@
+{
+  "paragraphs": [
+    {
+      "text": "%sh\n\naws s3api create-bucket --bucket carolyndubytesting --acl public-read",
+      "user": "admin",
+      "dateUpdated": "May 3, 2017 2:21:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sh"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{\n    \"Location\": \"/carolyndubytesting\"\n}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493821280561_1953374507",
+      "id": "20170503-142120_956440301",
+      "dateCreated": "May 3, 2017 2:21:20 PM",
+      "dateStarted": "May 3, 2017 2:21:41 PM",
+      "dateFinished": "May 3, 2017 2:21:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark2.r\n\nfoo \u003c- TRUE\nprint(foo)\nbare \u003c- c(1, 2.5, 4)\nprint(bare)\ndouble \u003c- 15.0\nprint(double)\n",
+      "user": "admin",
+      "dateUpdated": "May 3, 2017 5:54:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "r",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/r"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n[1] TRUE\n[1] 1.0 2.5 4.0\n[1] 15\n\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493821301867_1738694488",
+      "id": "20170503-142141_875262125",
+      "dateCreated": "May 3, 2017 2:21:41 PM",
+      "dateStarted": "May 3, 2017 5:54:21 PM",
+      "dateFinished": "May 3, 2017 5:54:40 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark2.r 2+2\n",
+      "user": "admin",
+      "dateUpdated": "May 3, 2017 5:54:54 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "r"
+        },
+        "editorMode": "ace/mode/r"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n[1] 4\n\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493829842046_1867888261",
+      "id": "20170503-164402_1778379200",
+      "dateCreated": "May 3, 2017 4:44:02 PM",
+      "dateStarted": "May 3, 2017 5:54:54 PM",
+      "dateFinished": "May 3, 2017 5:54:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark2.r\n",
+      "user": "admin",
+      "dateUpdated": "May 3, 2017 4:51:29 PM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1493830289180_-214345427",
+      "id": "20170503-165129_1099430",
+      "dateCreated": "May 3, 2017 4:51:29 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Testing",
+  "id": "2CGNEW54W",
+  "angularObjects": {
+    "2CE4NYR81:shared_process": [],
+    "2CFUAQU1U:shared_process": [],
+    "2CF8EF3V2:shared_process": [],
+    "2CH64TK8H:shared_process": [],
+    "2CHPECDR1:shared_process": [],
+    "2CEC7B8TD:shared_process": [],
+    "2CH9BFGYP:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

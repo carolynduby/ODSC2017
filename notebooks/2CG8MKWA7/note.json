@@ -1,0 +1,438 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark2.spark\nval crime_data \u003d spark.read.orc(\"s3a://carolyndubywestodsc2017/data/crime/orc\")\ncrime_data.show\ncrime_data.registerTempTable(\"ChicagoCrime\")",
+      "user": "admin",
+      "dateUpdated": "May 3, 2017 8:23:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala"
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\ncrime_data: org.apache.spark.sql.DataFrame \u003d [caseNumber: string, reportDateTime: timestamp ... 18 more fields]\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|caseNumber|      reportDateTime|               block|        primaryType|         description| locationDescription|arrest|domestic|beat|district|ward|communityArea|fbiCode|    latitude|    longitude|            location|weekOfYear|dayOfWeek|hourOfDay|year|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|  HH221765|2002-03-04 12:15:...| 059XX N SHERIDAN RD|            BATTERY|              SIMPLE|           APARTMENT| false|    true|2022|      20|null|         null|    08B|41.989433412|-87.655366388|(41.989433412, -8...|        10|   Monday|       12|2002|\n|  HH224012|2002-03-05 16:30:...|       020XX W 70 ST|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 735|       7|null|         null|     07|41.766617035|-87.674212669|(41.766617035, -8...|        10|  Tuesday|       16|2002|\n|  HH222096|2002-03-04 17:05:...|  012XX S ASHLAND AV|              THEFT|           OVER $500|PARKING LOT/GARAG...| false|   false|1224|      12|null|         null|     06|41.866331725|-87.666379171|(41.866331725, -8...|        10|   Monday|       17|2002|\n|  HH319819|2002-04-13 15:00:...|  053XX S CORNELL AV|            ASSAULT|              SIMPLE|           APARTMENT| false|   false|2132|       2|null|         null|    08A|        null|         null|                null|        15| Saturday|       15|2002|\n|  HH128917|2002-01-15 22:23:...|  013XX N LARAMIE AV|  CRIMINAL TRESPASS|             TO LAND|       PARK PROPERTY| false|   false|2533|      25|null|         null|     26| 41.90464582|-87.755830699|(41.90464582, -87...|         3|  Tuesday|       22|2002|\n|  HH215617|2002-02-28 11:35:...|    017XX W PRYOR AV|            BATTERY|              SIMPLE|SCHOOL, PUBLIC, B...| false|   false|2212|      22|null|         null|    08B|41.692041778|-87.665923635|(41.692041778, -8...|         9| Thursday|       11|2002|\n|  HH226891|2002-03-06 22:30:...|   094XX S VERNON AV|    CRIMINAL DAMAGE|          TO VEHICLE|              STREET| false|   false| 633|       6|null|         null|     14|41.723262549|-87.612968602|(41.723262549, -8...|        10|Wednesday|       22|2002|\n|  HH226695|2002-03-06 23:35:...|       024XX E 78 ST|            BATTERY|              SIMPLE|           APARTMENT| false|    true| 421|       4|null|         null|    08B|41.753551196|  -87.5658774|(41.753551196, -8...|        10|Wednesday|       23|2002|\n|  HH225071|2002-03-06 07:25:...|   021XX S LAFLIN ST|              THEFT|      $500 AND UNDER|PARKING LOT/GARAG...| false|   false|1222|      12|null|         null|     06| 41.85381304| -87.66365353|(41.85381304, -87...|        10|Wednesday|        7|2002|\n|  HH226114|2002-03-06 17:00:...|    046XX N BROADWAY|  CRIMINAL TRESPASS|   TO STATE SUP LAND|               OTHER|  true|   false|2311|      19|null|         null|     26|41.966053999|-87.657890403|(41.966053999, -8...|        10|Wednesday|       17|2002|\n|  HH226689|2002-03-05 12:00:...|047XX S GREENWOOD AV|           BURGLARY|      FORCIBLE ENTRY|           RESIDENCE| false|   false|2124|       2|null|         null|     05|41.808734609|-87.599250835|(41.808734609, -8...|        10|  Tuesday|       12|2002|\n|  HH210591|2002-02-26 15:18:...|  016XX N MONITOR AV|          NARCOTICS|  MANU/DELIVER:CRACK|              STREET|  true|   false|2531|      25|null|         null|     18|41.909835964|-87.771478401|(41.909835964, -8...|         9|  Tuesday|       15|2002|\n|  HH223708|2002-03-04 17:00:...| 046XX S ROCKWELL ST|           BURGLARY|      FORCIBLE ENTRY|    RESIDENCE-GARAGE| false|   false| 912|       9|null|         null|     05|41.809497391|-87.689358855|(41.809497391, -8...|        10|   Monday|       17|2002|\n|  HH225473|2002-03-06 13:00:...|008XX W MARQUETTE RD|            ASSAULT|              SIMPLE|SCHOOL, PUBLIC, G...| false|   false| 723|       7|null|         null|    08A|41.772449111|-87.646185488|(41.772449111, -8...|        10|Wednesday|       13|2002|\n|  HH224684|2002-03-06 01:16:...|  075XX S PARNELL AV|            BATTERY|              SIMPLE|           RESIDENCE| false|    true| 621|       6|null|         null|    08B| 41.75706449|-87.638414759|(41.75706449, -87...|        10|Wednesday|        1|2002|\n|  HH226288|2002-03-06 19:46:...| 008XX N MICHIGAN AV|              THEFT|      $500 AND UNDER|    DEPARTMENT STORE|  true|   false|1833|      18|null|         null|     06|41.897895128|-87.624096605|(41.897895128, -8...|        10|Wednesday|       19|2002|\n|  HH218880|2002-03-02 21:40:...|  035XX W CHICAGO AV|          NARCOTICS|POSS: CANNABIS 30...|              STREET|  true|   false|1121|      11|null|         null|     18|41.895479821|-87.714177247|(41.895479821, -8...|         9| Saturday|       21|2002|\n|  HH227725|2002-03-07 12:00:...|095XX S WENTWORTH AV|              THEFT|      $500 AND UNDER|              STREET| false|   false| 511|       5|null|         null|     06|41.721205526|-87.628654671|(41.721205526, -8...|        10| Thursday|       12|2002|\n|  HH227862|2002-03-07 01:00:...|  075XX S STEWART AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 621|       6|null|         null|     07|41.757622369|-87.634472427|(41.757622369, -8...|        10| Thursday|        1|2002|\n|  HH228157|2002-03-07 17:00:...|  029XX N ASHLAND AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|PARKING LOT/GARAG...| false|   false|1931|      19|null|         null|     07|41.935432921|-87.668504341|(41.935432921, -8...|        10| Thursday|       17|2002|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493806992935_761715136",
+      "id": "20170503-102312_835187786",
+      "dateCreated": "May 3, 2017 10:23:12 AM",
+      "dateStarted": "May 3, 2017 10:25:12 AM",
+      "dateFinished": "May 3, 2017 10:25:33 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Is Chicago crime going up or down?",
+      "text": "%spark2.sql\nSELECT year, count(*) FROM ChicagoCrime GROUP BY year HAVING year !\u003d \"2017\"\n",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 3:34:38 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "count(1)",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tcount(1)\n2016\t265462\n2012\t335670\n2014\t274527\n2013\t306703\n2005\t453666\n2002\t486631\n2009\t392556\n2006\t448037\n2004\t386998\n2011\t351555\n2008\t426964\n2007\t436925\n2015\t262995\n2001\t485693\n2010\t370141\n2003\t474934\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493807088745_-1243441245",
+      "id": "20170503-102448_488121168",
+      "dateCreated": "May 3, 2017 10:24:48 AM",
+      "dateStarted": "May 4, 2017 12:18:05 AM",
+      "dateFinished": "May 4, 2017 12:19:07 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "What about homicide?",
+      "text": "%spark2.sql\n\nSELECT year, count(*) FROM ChicagoCrime \n        WHERE year !\u003d \"2017\" and primaryType \u003d \"HOMICIDE\"\n        GROUP BY year",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 3:35:16 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "count(1)",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tcount(1)\n2016\t772\n2012\t503\n2014\t424\n2013\t422\n2005\t453\n2002\t657\n2009\t460\n2006\t477\n2004\t454\n2011\t437\n2008\t513\n2007\t448\n2015\t497\n2001\t667\n2010\t438\n2003\t604\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493858002504_-658134997",
+      "id": "20170504-003322_1382557412",
+      "dateCreated": "May 4, 2017 12:33:22 AM",
+      "dateStarted": "May 4, 2017 12:43:17 AM",
+      "dateFinished": "May 4, 2017 12:43:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "What are the most prevalent crimes over entire period?",
+      "text": "%spark2.sql\nSELECT primaryType, count(*) as total FROM ChicagoCrime WHERE year !\u003d \"2017\" GROUP BY primaryType ORDER BY total desc \n",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 12:57:04 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "primaryType\ttotal\nTHEFT\t1282115\nBATTERY\t1123752\nCRIMINAL DAMAGE\t708777\nNARCOTICS\t674145\nOTHER OFFENSE\t380840\nASSAULT\t376114\nBURGLARY\t360957\nMOTOR VEHICLE THEFT\t290318\nROBBERY\t232914\nDECEPTIVE PRACTICE\t222593\nCRIMINAL TRESPASS\t177686\nPROSTITUTION\t65501\nWEAPONS VIOLATION\t60463\nPUBLIC PEACE VIOLATION\t44678\nOFFENSE INVOLVING CHILDREN\t40137\nCRIM SEXUAL ASSAULT\t23543\nSEX OFFENSE\t22611\nGAMBLING\t13884\nLIQUOR LAW VIOLATION\t13419\nINTERFERENCE WITH PUBLIC OFFICER\t12822\nARSON\t10266\nHOMICIDE\t8226\nKIDNAPPING\t6240\nINTIMIDATION\t3569\nSTALKING\t2958\nOBSCENITY\t411\nPUBLIC INDECENCY\t136\nOTHER NARCOTIC VIOLATION\t111\nNON-CRIMINAL\t93\nCONCEALED CARRY LICENSE VIOLATION\t85\nNON - CRIMINAL\t38\nHUMAN TRAFFICKING\t28\nRITUALISM\t22\nNON-CRIMINAL (SUBJECT SPECIFIED)\t4\nDOMESTIC VIOLENCE\t1\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493843224528_-219468783",
+      "id": "20170503-202704_2044159641",
+      "dateCreated": "May 3, 2017 8:27:04 PM",
+      "dateStarted": "May 4, 2017 12:16:08 AM",
+      "dateFinished": "May 4, 2017 12:17:11 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "What is the prevalence of the top three crimes by year and how do they compare to homicides?",
+      "text": "%spark2.sql\nSELECT year, primaryType, count(*) FROM ChicagoCrime \n        WHERE year !\u003d \"2017\" and (primaryType \u003d \"THEFT\" OR primaryType \u003d \"BATTERY\" OR primaryType \u003d \"CRIMINAL DAMAGE\" OR primaryType \u003d \"HOMICIDE\" OR primaryType \u003d \"BATTERY\")\n        GROUP BY year, primaryType ",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 3:37:34 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "stacked": false
+                },
+                "lineChart": {
+                  "forceY": true,
+                  "lineWithFocus": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [
+                {
+                  "name": "primaryType",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "count(1)",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tprimaryType\tcount(1)\n2007\tHOMICIDE\t448\n2005\tCRIMINAL DAMAGE\t54548\n2011\tCRIMINAL DAMAGE\t37332\n2003\tCRIMINAL DAMAGE\t54974\n2017\tCRIMINAL DAMAGE\t1305\n2001\tTHEFT\t99247\n2004\tBATTERY\t71667\n2012\tHOMICIDE\t503\n2009\tBATTERY\t68463\n2016\tCRIMINAL DAMAGE\t30978\n2016\tHOMICIDE\t772\n2004\tHOMICIDE\t454\n2009\tHOMICIDE\t460\n2009\tCRIMINAL DAMAGE\t47724\n2012\tCRIMINAL DAMAGE\t35853\n2003\tHOMICIDE\t604\n2008\tTHEFT\t88430\n2008\tHOMICIDE\t513\n2006\tHOMICIDE\t477\n2013\tHOMICIDE\t422\n2006\tBATTERY\t80665\n2014\tBATTERY\t49444\n2005\tTHEFT\t85685\n2012\tBATTERY\t59132\n2007\tTHEFT\t85155\n2006\tTHEFT\t86238\n2014\tHOMICIDE\t424\n2008\tCRIMINAL DAMAGE\t52841\n2017\tHOMICIDE\t31\n2002\tCRIMINAL DAMAGE\t55939\n2006\tCRIMINAL DAMAGE\t57124\n2016\tTHEFT\t61167\n2001\tCRIMINAL DAMAGE\t55851\n2003\tTHEFT\t98526\n2017\tBATTERY\t1974\n2010\tBATTERY\t65402\n2002\tTHEFT\t98263\n2014\tTHEFT\t61530\n2015\tCRIMINAL DAMAGE\t28669\n2007\tBATTERY\t79591\n2010\tCRIMINAL DAMAGE\t40653\n2017\tTHEFT\t2493\n2008\tBATTERY\t75922\n2011\tBATTERY\t60458\n2011\tHOMICIDE\t437\n2002\tHOMICIDE\t657\n2016\tBATTERY\t50243\n2015\tHOMICIDE\t497\n2010\tHOMICIDE\t438\n2002\tBATTERY\t94151\n2009\tTHEFT\t80972\n2005\tHOMICIDE\t453\n2014\tCRIMINAL DAMAGE\t27797\n2013\tBATTERY\t54003\n2010\tTHEFT\t76749\n2005\tBATTERY\t83964\n2013\tCRIMINAL DAMAGE\t30853\n2011\tTHEFT\t75142\n2013\tTHEFT\t71524\n2001\tHOMICIDE\t667\n2004\tCRIMINAL DAMAGE\t43892\n2015\tTHEFT\t57292\n2003\tBATTERY\t88296\n2007\tCRIMINAL DAMAGE\t53749\n2001\tBATTERY\t93447\n2012\tTHEFT\t75454\n2015\tBATTERY\t48904\n2004\tTHEFT\t80741\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493857420038_693890727",
+      "id": "20170504-002340_330852787",
+      "dateCreated": "May 4, 2017 12:23:40 AM",
+      "dateStarted": "May 4, 2017 12:33:22 AM",
+      "dateFinished": "May 4, 2017 12:34:13 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Are crimes more likely on certain days?",
+      "text": "%spark2.sql\nSELECT year, dayOfWeek, count(*)  FROM ChicagoCrime GROUP BY year, dayOfWeek  HAVING year !\u003d \"2017\"",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 3:38:10 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "stackedAreaChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "stackedAreaChart": {
+                  "style": "stream"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "year",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [
+                {
+                  "name": "dayOfWeek",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "count(1)",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "year\tdayOfWeek\tcount(1)\n2009\tFriday\t59099\n2016\tWednesday\t36849\n2004\tThursday\t56557\n2013\tFriday\t46588\n2006\tThursday\t64180\n2006\tSunday\t60934\n2012\tWednesday\t48880\n2006\tMonday\t61110\n2007\tSunday\t58514\n2009\tSunday\t51634\n2004\tSunday\t52306\n2001\tTuesday\t69013\n2005\tWednesday\t65349\n2012\tSunday\t46876\n2008\tTuesday\t62398\n2011\tWednesday\t50261\n2008\tFriday\t64658\n2007\tFriday\t66785\n2013\tThursday\t43698\n2001\tFriday\t72521\n2014\tThursday\t37929\n2003\tSaturday\t67767\n2005\tThursday\t64781\n2014\tSaturday\t40348\n2004\tMonday\t54270\n2006\tSaturday\t64109\n2016\tThursday\t37611\n2015\tFriday\t38936\n2007\tSaturday\t62190\n2011\tMonday\t49610\n2010\tSaturday\t50821\n2011\tFriday\t53051\n2007\tTuesday\t62064\n2009\tWednesday\t57779\n2009\tThursday\t57467\n2012\tSaturday\t47863\n2015\tThursday\t38004\n2014\tFriday\t41465\n2005\tSunday\t60385\n2001\tMonday\t70792\n2003\tTuesday\t68367\n2010\tMonday\t52224\n2012\tTuesday\t47492\n2008\tThursday\t60108\n2013\tSunday\t41321\n2003\tThursday\t67530\n2004\tTuesday\t55703\n2002\tThursday\t68839\n2004\tSaturday\t53701\n2003\tSunday\t63358\n2014\tWednesday\t39687\n2008\tWednesday\t62740\n2014\tTuesday\t38344\n2005\tMonday\t64108\n2008\tSaturday\t60938\n2002\tFriday\t73311\n2012\tMonday\t47274\n2003\tFriday\t70579\n2010\tSunday\t48721\n2001\tSunday\t65050\n2005\tTuesday\t65777\n2015\tSunday\t37210\n2002\tSaturday\t70015\n2005\tFriday\t67939\n2016\tFriday\t40500\n2014\tSunday\t38163\n2010\tWednesday\t53719\n2007\tThursday\t62400\n2009\tMonday\t54246\n2013\tMonday\t43425\n2012\tFriday\t49842\n2007\tMonday\t62741\n2007\tWednesday\t62231\n2002\tSunday\t65350\n2002\tTuesday\t71213\n2002\tMonday\t68550\n2010\tThursday\t53855\n2013\tSaturday\t43430\n2010\tFriday\t57117\n2011\tThursday\t50015\n2004\tWednesday\t56465\n2001\tWednesday\t69557\n2008\tMonday\t59420\n2015\tWednesday\t37189\n2011\tTuesday\t50336\n2016\tSunday\t36721\n2015\tSaturday\t37917\n2016\tTuesday\t37132\n2009\tSaturday\t55271\n2014\tMonday\t38591\n2016\tMonday\t37706\n2002\tWednesday\t69353\n2004\tFriday\t57996\n2010\tTuesday\t53684\n2016\tSaturday\t38943\n2012\tThursday\t47443\n2006\tWednesday\t65607\n2003\tMonday\t67401\n2006\tFriday\t67578\n2005\tSaturday\t65327\n2006\tTuesday\t64519\n2009\tTuesday\t57060\n2003\tWednesday\t69932\n2011\tSunday\t47147\n2001\tSaturday\t69449\n2013\tWednesday\t43907\n2008\tSunday\t56702\n2015\tMonday\t36905\n2001\tThursday\t69311\n2015\tTuesday\t36834\n2013\tTuesday\t44334\n2011\tSaturday\t51135\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493843112575_687198840",
+      "id": "20170503-202512_1416016574",
+      "dateCreated": "May 3, 2017 8:25:12 PM",
+      "dateStarted": "May 4, 2017 12:23:40 AM",
+      "dateFinished": "May 4, 2017 12:24:59 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Homicide reports by day over entire timeperiod",
+      "text": "%spark2.sql\n\nSELECT dayOfWeek, count(*) FROM ChicagoCrime WHERE primaryType \u003d \"HOMICIDE\"  GROUP BY dayOfWeek",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 12:53:12 AM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql"
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "dayOfWeek\tcount(1)\nWednesday\t1030\nTuesday\t1042\nFriday\t1087\nThursday\t1079\nSaturday\t1457\nMonday\t1109\nSunday\t1453\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493858582045_147541235",
+      "id": "20170504-004302_968235332",
+      "dateCreated": "May 4, 2017 12:43:02 AM",
+      "dateStarted": "May 4, 2017 12:47:16 AM",
+      "dateFinished": "May 4, 2017 12:47:46 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark2.sql\n",
+      "user": "admin",
+      "dateUpdated": "May 4, 2017 12:47:16 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1493858836009_1207107413",
+      "id": "20170504-004716_1547806434",
+      "dateCreated": "May 4, 2017 12:47:16 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Chicago Crime Data/Explore",
+  "id": "2CG8MKWA7",
+  "angularObjects": {
+    "2CE4NYR81:shared_process": [],
+    "2CFUAQU1U:shared_process": [],
+    "2CF8EF3V2:shared_process": [],
+    "2CH64TK8H:shared_process": [],
+    "2CHPECDR1:shared_process": [],
+    "2CEC7B8TD:shared_process": [],
+    "2CH9BFGYP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}
