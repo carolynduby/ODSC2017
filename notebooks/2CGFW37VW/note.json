@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "%spark2.spark\nval crime_data \u003d spark.read.orc(\"s3a://carolyndubywestodsc2017/data/crime/orc\")\ncrime_data.show\n",
+      "text": "%spark2.spark\nval crime_data \u003d spark.read.orc(\"s3a://carolyndubywestodsc2017/data/crime/orc\")\ncrime_data.show\n\n// create training and test data sets\nval crime_data_sequence \u003d crime_data.withColumn(\"sequence\", $\"year\" * 1000 + date_format($\"reportDateTime\", \"D\").cast(IntegerType)).groupBy(\"sequence\", \"year\").count()\n\nval crime_training_data \u003d crime_data_sequence.filter(\"year !\u003d 2017 and year !\u003d 2016\")\nval crime_test_data \u003d crime_data_sequence.filter(\"year \u003d 2017 or year \u003d 2016\")\n\ncrime_training_data.show\ncrime_test_data.show",
       "user": "admin",
-      "dateUpdated": "May 4, 2017 3:03:30 AM",
+      "dateUpdated": "May 5, 2017 1:22:08 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -23,7 +23,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\ncrime_data: org.apache.spark.sql.DataFrame \u003d [caseNumber: string, reportDateTime: timestamp ... 18 more fields]\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|caseNumber|      reportDateTime|               block|        primaryType|         description| locationDescription|arrest|domestic|beat|district|ward|communityArea|fbiCode|    latitude|    longitude|            location|weekOfYear|dayOfWeek|hourOfDay|year|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|  HH221765|2002-03-04 12:15:...| 059XX N SHERIDAN RD|            BATTERY|              SIMPLE|           APARTMENT| false|    true|2022|      20|null|         null|    08B|41.989433412|-87.655366388|(41.989433412, -8...|        10|   Monday|       12|2002|\n|  HH224012|2002-03-05 16:30:...|       020XX W 70 ST|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 735|       7|null|         null|     07|41.766617035|-87.674212669|(41.766617035, -8...|        10|  Tuesday|       16|2002|\n|  HH222096|2002-03-04 17:05:...|  012XX S ASHLAND AV|              THEFT|           OVER $500|PARKING LOT/GARAG...| false|   false|1224|      12|null|         null|     06|41.866331725|-87.666379171|(41.866331725, -8...|        10|   Monday|       17|2002|\n|  HH319819|2002-04-13 15:00:...|  053XX S CORNELL AV|            ASSAULT|              SIMPLE|           APARTMENT| false|   false|2132|       2|null|         null|    08A|        null|         null|                null|        15| Saturday|       15|2002|\n|  HH128917|2002-01-15 22:23:...|  013XX N LARAMIE AV|  CRIMINAL TRESPASS|             TO LAND|       PARK PROPERTY| false|   false|2533|      25|null|         null|     26| 41.90464582|-87.755830699|(41.90464582, -87...|         3|  Tuesday|       22|2002|\n|  HH215617|2002-02-28 11:35:...|    017XX W PRYOR AV|            BATTERY|              SIMPLE|SCHOOL, PUBLIC, B...| false|   false|2212|      22|null|         null|    08B|41.692041778|-87.665923635|(41.692041778, -8...|         9| Thursday|       11|2002|\n|  HH226891|2002-03-06 22:30:...|   094XX S VERNON AV|    CRIMINAL DAMAGE|          TO VEHICLE|              STREET| false|   false| 633|       6|null|         null|     14|41.723262549|-87.612968602|(41.723262549, -8...|        10|Wednesday|       22|2002|\n|  HH226695|2002-03-06 23:35:...|       024XX E 78 ST|            BATTERY|              SIMPLE|           APARTMENT| false|    true| 421|       4|null|         null|    08B|41.753551196|  -87.5658774|(41.753551196, -8...|        10|Wednesday|       23|2002|\n|  HH225071|2002-03-06 07:25:...|   021XX S LAFLIN ST|              THEFT|      $500 AND UNDER|PARKING LOT/GARAG...| false|   false|1222|      12|null|         null|     06| 41.85381304| -87.66365353|(41.85381304, -87...|        10|Wednesday|        7|2002|\n|  HH226114|2002-03-06 17:00:...|    046XX N BROADWAY|  CRIMINAL TRESPASS|   TO STATE SUP LAND|               OTHER|  true|   false|2311|      19|null|         null|     26|41.966053999|-87.657890403|(41.966053999, -8...|        10|Wednesday|       17|2002|\n|  HH226689|2002-03-05 12:00:...|047XX S GREENWOOD AV|           BURGLARY|      FORCIBLE ENTRY|           RESIDENCE| false|   false|2124|       2|null|         null|     05|41.808734609|-87.599250835|(41.808734609, -8...|        10|  Tuesday|       12|2002|\n|  HH210591|2002-02-26 15:18:...|  016XX N MONITOR AV|          NARCOTICS|  MANU/DELIVER:CRACK|              STREET|  true|   false|2531|      25|null|         null|     18|41.909835964|-87.771478401|(41.909835964, -8...|         9|  Tuesday|       15|2002|\n|  HH223708|2002-03-04 17:00:...| 046XX S ROCKWELL ST|           BURGLARY|      FORCIBLE ENTRY|    RESIDENCE-GARAGE| false|   false| 912|       9|null|         null|     05|41.809497391|-87.689358855|(41.809497391, -8...|        10|   Monday|       17|2002|\n|  HH225473|2002-03-06 13:00:...|008XX W MARQUETTE RD|            ASSAULT|              SIMPLE|SCHOOL, PUBLIC, G...| false|   false| 723|       7|null|         null|    08A|41.772449111|-87.646185488|(41.772449111, -8...|        10|Wednesday|       13|2002|\n|  HH224684|2002-03-06 01:16:...|  075XX S PARNELL AV|            BATTERY|              SIMPLE|           RESIDENCE| false|    true| 621|       6|null|         null|    08B| 41.75706449|-87.638414759|(41.75706449, -87...|        10|Wednesday|        1|2002|\n|  HH226288|2002-03-06 19:46:...| 008XX N MICHIGAN AV|              THEFT|      $500 AND UNDER|    DEPARTMENT STORE|  true|   false|1833|      18|null|         null|     06|41.897895128|-87.624096605|(41.897895128, -8...|        10|Wednesday|       19|2002|\n|  HH218880|2002-03-02 21:40:...|  035XX W CHICAGO AV|          NARCOTICS|POSS: CANNABIS 30...|              STREET|  true|   false|1121|      11|null|         null|     18|41.895479821|-87.714177247|(41.895479821, -8...|         9| Saturday|       21|2002|\n|  HH227725|2002-03-07 12:00:...|095XX S WENTWORTH AV|              THEFT|      $500 AND UNDER|              STREET| false|   false| 511|       5|null|         null|     06|41.721205526|-87.628654671|(41.721205526, -8...|        10| Thursday|       12|2002|\n|  HH227862|2002-03-07 01:00:...|  075XX S STEWART AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 621|       6|null|         null|     07|41.757622369|-87.634472427|(41.757622369, -8...|        10| Thursday|        1|2002|\n|  HH228157|2002-03-07 17:00:...|  029XX N ASHLAND AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|PARKING LOT/GARAG...| false|   false|1931|      19|null|         null|     07|41.935432921|-87.668504341|(41.935432921, -8...|        10| Thursday|       17|2002|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\nonly showing top 20 rows\n\n"
+            "data": "\ncrime_data: org.apache.spark.sql.DataFrame \u003d [caseNumber: string, reportDateTime: timestamp ... 18 more fields]\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|caseNumber|      reportDateTime|               block|        primaryType|         description| locationDescription|arrest|domestic|beat|district|ward|communityArea|fbiCode|    latitude|    longitude|            location|weekOfYear|dayOfWeek|hourOfDay|year|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\n|  HH221765|2002-03-04 12:15:...| 059XX N SHERIDAN RD|            BATTERY|              SIMPLE|           APARTMENT| false|    true|2022|      20|null|         null|    08B|41.989433412|-87.655366388|(41.989433412, -8...|        10|   Monday|       12|2002|\n|  HH224012|2002-03-05 16:30:...|       020XX W 70 ST|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 735|       7|null|         null|     07|41.766617035|-87.674212669|(41.766617035, -8...|        10|  Tuesday|       16|2002|\n|  HH222096|2002-03-04 17:05:...|  012XX S ASHLAND AV|              THEFT|           OVER $500|PARKING LOT/GARAG...| false|   false|1224|      12|null|         null|     06|41.866331725|-87.666379171|(41.866331725, -8...|        10|   Monday|       17|2002|\n|  HH319819|2002-04-13 15:00:...|  053XX S CORNELL AV|            ASSAULT|              SIMPLE|           APARTMENT| false|   false|2132|       2|null|         null|    08A|        null|         null|                null|        15| Saturday|       15|2002|\n|  HH128917|2002-01-15 22:23:...|  013XX N LARAMIE AV|  CRIMINAL TRESPASS|             TO LAND|       PARK PROPERTY| false|   false|2533|      25|null|         null|     26| 41.90464582|-87.755830699|(41.90464582, -87...|         3|  Tuesday|       22|2002|\n|  HH215617|2002-02-28 11:35:...|    017XX W PRYOR AV|            BATTERY|              SIMPLE|SCHOOL, PUBLIC, B...| false|   false|2212|      22|null|         null|    08B|41.692041778|-87.665923635|(41.692041778, -8...|         9| Thursday|       11|2002|\n|  HH226891|2002-03-06 22:30:...|   094XX S VERNON AV|    CRIMINAL DAMAGE|          TO VEHICLE|              STREET| false|   false| 633|       6|null|         null|     14|41.723262549|-87.612968602|(41.723262549, -8...|        10|Wednesday|       22|2002|\n|  HH226695|2002-03-06 23:35:...|       024XX E 78 ST|            BATTERY|              SIMPLE|           APARTMENT| false|    true| 421|       4|null|         null|    08B|41.753551196|  -87.5658774|(41.753551196, -8...|        10|Wednesday|       23|2002|\n|  HH225071|2002-03-06 07:25:...|   021XX S LAFLIN ST|              THEFT|      $500 AND UNDER|PARKING LOT/GARAG...| false|   false|1222|      12|null|         null|     06| 41.85381304| -87.66365353|(41.85381304, -87...|        10|Wednesday|        7|2002|\n|  HH226114|2002-03-06 17:00:...|    046XX N BROADWAY|  CRIMINAL TRESPASS|   TO STATE SUP LAND|               OTHER|  true|   false|2311|      19|null|         null|     26|41.966053999|-87.657890403|(41.966053999, -8...|        10|Wednesday|       17|2002|\n|  HH226689|2002-03-05 12:00:...|047XX S GREENWOOD AV|           BURGLARY|      FORCIBLE ENTRY|           RESIDENCE| false|   false|2124|       2|null|         null|     05|41.808734609|-87.599250835|(41.808734609, -8...|        10|  Tuesday|       12|2002|\n|  HH210591|2002-02-26 15:18:...|  016XX N MONITOR AV|          NARCOTICS|  MANU/DELIVER:CRACK|              STREET|  true|   false|2531|      25|null|         null|     18|41.909835964|-87.771478401|(41.909835964, -8...|         9|  Tuesday|       15|2002|\n|  HH223708|2002-03-04 17:00:...| 046XX S ROCKWELL ST|           BURGLARY|      FORCIBLE ENTRY|    RESIDENCE-GARAGE| false|   false| 912|       9|null|         null|     05|41.809497391|-87.689358855|(41.809497391, -8...|        10|   Monday|       17|2002|\n|  HH225473|2002-03-06 13:00:...|008XX W MARQUETTE RD|            ASSAULT|              SIMPLE|SCHOOL, PUBLIC, G...| false|   false| 723|       7|null|         null|    08A|41.772449111|-87.646185488|(41.772449111, -8...|        10|Wednesday|       13|2002|\n|  HH224684|2002-03-06 01:16:...|  075XX S PARNELL AV|            BATTERY|              SIMPLE|           RESIDENCE| false|    true| 621|       6|null|         null|    08B| 41.75706449|-87.638414759|(41.75706449, -87...|        10|Wednesday|        1|2002|\n|  HH226288|2002-03-06 19:46:...| 008XX N MICHIGAN AV|              THEFT|      $500 AND UNDER|    DEPARTMENT STORE|  true|   false|1833|      18|null|         null|     06|41.897895128|-87.624096605|(41.897895128, -8...|        10|Wednesday|       19|2002|\n|  HH218880|2002-03-02 21:40:...|  035XX W CHICAGO AV|          NARCOTICS|POSS: CANNABIS 30...|              STREET|  true|   false|1121|      11|null|         null|     18|41.895479821|-87.714177247|(41.895479821, -8...|         9| Saturday|       21|2002|\n|  HH227725|2002-03-07 12:00:...|095XX S WENTWORTH AV|              THEFT|      $500 AND UNDER|              STREET| false|   false| 511|       5|null|         null|     06|41.721205526|-87.628654671|(41.721205526, -8...|        10| Thursday|       12|2002|\n|  HH227862|2002-03-07 01:00:...|  075XX S STEWART AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|              STREET| false|   false| 621|       6|null|         null|     07|41.757622369|-87.634472427|(41.757622369, -8...|        10| Thursday|        1|2002|\n|  HH228157|2002-03-07 17:00:...|  029XX N ASHLAND AV|MOTOR VEHICLE THEFT|          AUTOMOBILE|PARKING LOT/GARAG...| false|   false|1931|      19|null|         null|     07|41.935432921|-87.668504341|(41.935432921, -8...|        10| Thursday|       17|2002|\n+----------+--------------------+--------------------+-------------------+--------------------+--------------------+------+--------+----+--------+----+-------------+-------+------------+-------------+--------------------+----------+---------+---------+----+\nonly showing top 20 rows\n\n\ncrime_data_sequence: org.apache.spark.sql.DataFrame \u003d [sequence: int, year: int ... 1 more field]\n\ncrime_training_data: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [sequence: int, year: int ... 1 more field]\n\ncrime_test_data: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [sequence: int, year: int ... 1 more field]\n+--------+----+-----+\n|sequence|year|count|\n+--------+----+-----+\n| 2002017|2002| 1115|\n| 2002097|2002| 1103|\n| 2002167|2002| 1400|\n| 2001110|2001| 1475|\n| 2001120|2001| 1432|\n| 2001143|2001| 1232|\n| 2001158|2001| 1326|\n| 2003053|2003| 1121|\n| 2005013|2005| 1204|\n| 2006165|2006| 1351|\n| 2006301|2006| 1213|\n| 2007063|2007| 1000|\n| 2009143|2009| 1086|\n| 2009193|2009| 1167|\n| 2009310|2009| 1138|\n| 2009327|2009| 1021|\n| 2004264|2004| 1297|\n| 2004287|2004| 1298|\n| 2004288|2004| 1343|\n| 2010203|2010| 1187|\n+--------+----+-----+\nonly showing top 20 rows\n\n+--------+----+-----+\n|sequence|year|count|\n+--------+----+-----+\n| 2016021|2016|  626|\n| 2016185|2016|  778|\n| 2016248|2016|  763|\n| 2016256|2016|  781|\n| 2016331|2016|  699|\n| 2016249|2016|  809|\n| 2016101|2016|  702|\n| 2016303|2016|  828|\n| 2016154|2016|  794|\n| 2016183|2016|  903|\n| 2017010|2017|  659|\n| 2016166|2016|  831|\n| 2016195|2016|  723|\n| 2016335|2016|  679|\n| 2016267|2016|  830|\n| 2016022|2016|  697|\n| 2016233|2016|  837|\n| 2016242|2016|  877|\n| 2016012|2016|  546|\n| 2016271|2016|  724|\n+--------+----+-----+\nonly showing top 20 rows\n\n"
           }
         ]
       },
@@ -31,15 +31,15 @@
       "jobName": "paragraph_1493813425195_-144864199",
       "id": "20170503-121025_1726447188",
       "dateCreated": "May 3, 2017 12:10:25 PM",
-      "dateStarted": "May 4, 2017 3:03:30 AM",
-      "dateFinished": "May 4, 2017 3:03:41 AM",
+      "dateStarted": "May 5, 2017 1:22:08 PM",
+      "dateFinished": "May 5, 2017 1:29:36 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%spark2.spark\nval crime_by_day_of_week \u003d crime_data.filter(\"year !\u003d 2017\").groupBy(\"year\", \"weekOfYear\", \"dayOfWeek\").count()\ncrime_by_day_of_week.show",
+      "text": "%spark2.spark\n\nimport org.apache.spark.ml.regression.GeneralizedLinearRegression\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.linalg.Vectors\n\nval assembler \u003d new VectorAssembler()\n  .setInputCols(Array(\"count\"))\n  .setOutputCol(\"features\")\n\nval training_data_vector \u003d assembler.transform(crime_training_data).select($\"features\", $\"sequence\".as(\"label\"))\ntraining_data_vector.show\n\n\nval glr \u003d new GeneralizedLinearRegression()\n  .setFamily(\"poisson\")\n  .setMaxIter(10)\n\n// Fit the model\nval model \u003d glr.fit(training_data_vector)\n\n// Print the coefficients and intercept for generalized linear regression model\nprintln(s\"Coefficients: ${model.coefficients}\")\nprintln(s\"Intercept: ${model.intercept}\")\n\n// Summarize the model over the training set and print out some metrics\nval summary \u003d model.summary\nprintln(s\"Coefficient Standard Errors: ${summary.coefficientStandardErrors.mkString(\",\")}\")\nprintln(s\"T Values: ${summary.tValues.mkString(\",\")}\")\nprintln(s\"P Values: ${summary.pValues.mkString(\",\")}\")\nprintln(s\"Dispersion: ${summary.dispersion}\")\nprintln(s\"Null Deviance: ${summary.nullDeviance}\")\nprintln(s\"Residual Degree Of Freedom Null: ${summary.residualDegreeOfFreedomNull}\")\nprintln(s\"Deviance: ${summary.deviance}\")\nprintln(s\"Residual Degree Of Freedom: ${summary.residualDegreeOfFreedom}\")\nprintln(s\"AIC: ${summary.aic}\")\nprintln(\"Deviance Residuals: \")\nsummary.residuals().show()\n",
       "user": "admin",
-      "dateUpdated": "May 4, 2017 3:03:58 AM",
+      "dateUpdated": "May 5, 2017 1:45:15 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -59,153 +59,32 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\ncrime_by_day_of_week: org.apache.spark.sql.DataFrame \u003d [year: int, weekOfYear: string ... 2 more fields]\n+----+----------+---------+-----+\n|year|weekOfYear|dayOfWeek|count|\n+----+----------+---------+-----+\n|2002|        42|   Friday| 1444|\n|2003|        29|   Monday| 1438|\n|2001|        10|  Tuesday| 1247|\n|2001|        50|   Friday| 1370|\n|2005|        40|Wednesday| 1259|\n|2008|        15| Thursday| 1131|\n|2009|         7|   Sunday|  946|\n|2009|        40|  Tuesday| 1089|\n|2004|        45|Wednesday| 1269|\n|2004|        40| Saturday| 1200|\n|2010|        35| Thursday| 1140|\n|2010|        41| Thursday| 1068|\n|2010|        20|  Tuesday|  998|\n|2011|        15| Saturday|  948|\n|2011|        42|   Sunday| 1002|\n|2012|        20| Saturday|  931|\n|2012|        13|Wednesday|  910|\n|2013|        30| Saturday|  895|\n|2013|        39|   Monday|  849|\n|2013|        43|Wednesday|  750|\n+----+----------+---------+-----+\nonly showing top 20 rows\n\n"
+            "data": "\nimport org.apache.spark.ml.regression.GeneralizedLinearRegression\n\nimport org.apache.spark.ml.feature.VectorAssembler\n\nimport org.apache.spark.ml.linalg.Vectors\n\nassembler: org.apache.spark.ml.feature.VectorAssembler \u003d vecAssembler_a63ac6d07712\n\ntraining_data_vector: org.apache.spark.sql.DataFrame \u003d [features: vector, label: int]\n+--------+-------+\n|features|  label|\n+--------+-------+\n|[1103.0]|2002097|\n|[1400.0]|2002167|\n|[1115.0]|2002017|\n|[1121.0]|2003053|\n|[1475.0]|2001110|\n|[1432.0]|2001120|\n|[1232.0]|2001143|\n|[1326.0]|2001158|\n|[1204.0]|2005013|\n|[1351.0]|2006165|\n|[1213.0]|2006301|\n|[1000.0]|2007063|\n|[1086.0]|2009143|\n|[1138.0]|2009310|\n|[1167.0]|2009193|\n|[1021.0]|2009327|\n|[1297.0]|2004264|\n|[1298.0]|2004287|\n|[1343.0]|2004288|\n|[1187.0]|2010203|\n+--------+-------+\nonly showing top 20 rows\n\n\nglr: org.apache.spark.ml.regression.GeneralizedLinearRegression \u003d glm_7dd0b0755511\n\nmodel: org.apache.spark.ml.regression.GeneralizedLinearRegressionModel \u003d glm_7dd0b0755511\nCoefficients: [-5.873754343803652E-6]\nIntercept: 14.519059576700014\n\nsummary: org.apache.spark.ml.regression.GeneralizedLinearRegressionTrainingSummary \u003d org.apache.spark.ml.regression.GeneralizedLinearRegressionTrainingSummary@2ec556dc\nCoefficient Standard Errors: 3.6647722321903644E-8,4.055287444774819E-5\nT Values: -160.2761091729027,358027.87778724835\nP Values: 0.0,0.0\nDispersion: 1.0\nNull Deviance: 50938.09793122\nResidual Degree Of Freedom Null: 5477\nDeviance: 25256.76528909744\nResidual Degree Of Freedom: 5476\nAIC: 114829.43849795312\nDeviance Residuals: \n+--------------------+\n|   devianceResiduals|\n+--------------------+\n|  -4.070138367388808|\n| -1.5506318570955782|\n|  -4.026823586444769|\n| -3.2451233941368347|\n| -1.6740982253194179|\n| -2.0244758810236965|\n| -3.6711563042580915|\n|  -2.878895575048392|\n| -1.1704358260565295|\n|  0.8658408471075001|\n|-0.18616188791805738|\n| -1.4209197698636735|\n|  0.7627161405089363|\n|  1.4722047368548183|\n|    1.31338607228599|\n|  0.3514203903008919|\n| -0.9257671739400858|\n| -0.9012054150324814|\n| -0.5262323452666107|\n|  2.3512798169772755|\n+--------------------+\nonly showing top 20 rows\n\n"
           }
         ]
       },
       "apps": [],
-      "jobName": "paragraph_1493813572984_145619576",
-      "id": "20170503-121252_2107581600",
-      "dateCreated": "May 3, 2017 12:12:52 PM",
-      "dateStarted": "May 4, 2017 3:03:58 AM",
-      "dateFinished": "May 4, 2017 3:09:54 AM",
+      "jobName": "paragraph_1493990658856_401574425",
+      "id": "20170505-132418_1876380279",
+      "dateCreated": "May 5, 2017 1:24:18 PM",
+      "dateStarted": "May 5, 2017 1:45:15 PM",
+      "dateFinished": "May 5, 2017 2:37:03 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%spark2.spark\ncrime_by_day_of_week.registerTempTable(\"ChicagoCrimeByDay\")\nz.put(\"crime_by_day_of_week_df\", crime_by_day_of_week)",
+      "text": "%spark2.spark\n",
       "user": "admin",
-      "dateUpdated": "May 4, 2017 3:21:31 AM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "scala"
-        },
-        "editorMode": "ace/mode/scala"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1493817656893_-305100940",
-      "id": "20170503-132056_1318769651",
-      "dateCreated": "May 3, 2017 1:20:56 PM",
-      "dateStarted": "May 4, 2017 3:21:31 AM",
-      "dateFinished": "May 4, 2017 3:21:31 AM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%spark2.r\ncrime_by_day_of_week_df \u003c- z.get(\"crime_by_day_of_week_df\")\nhead(crime_by_day_of_week_df)",
-      "user": "admin",
-      "dateUpdated": "May 4, 2017 3:24:26 AM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "r"
-        },
-        "editorMode": "ace/mode/r"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1493867449883_-1612511787",
-      "id": "20170504-031049_1593885843",
-      "dateCreated": "May 4, 2017 3:10:49 AM",
-      "status": "READY",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%spark2.sql\nSELECT * from ChicagoCrimeByDay limit 100\n",
-      "user": "admin",
-      "dateUpdated": "May 4, 2017 2:57:21 AM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "sql",
-          "editOnDblClick": false
-        },
-        "editorMode": "ace/mode/sql"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "ERROR",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "org.apache.spark.SparkException: Job 64 cancelled part of cancelled job group zeppelin-20170503-135029_1326527749\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1435)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1375)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:788)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:788)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:788)\n\tat scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:788)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1625)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1605)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1594)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:628)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:1918)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:1931)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:1944)\n\tat org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:333)\n\tat org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:38)\n\tat org.apache.spark.sql.Dataset$$anonfun$org$apache$spark$sql$Dataset$$execute$1$1.apply(Dataset.scala:2376)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:57)\n\tat org.apache.spark.sql.Dataset.withNewExecutionId(Dataset.scala:2770)\n\tat org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$execute$1(Dataset.scala:2375)\n\tat org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collect(Dataset.scala:2382)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2118)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2117)\n\tat org.apache.spark.sql.Dataset.withTypedCallback(Dataset.scala:2800)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2117)\n\tat org.apache.spark.sql.Dataset.take(Dataset.scala:2332)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat org.apache.zeppelin.spark.ZeppelinContext.showDF(ZeppelinContext.java:235)\n\tat org.apache.zeppelin.spark.SparkSqlInterpreter.interpret(SparkSqlInterpreter.java:130)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:94)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:489)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.FIFOScheduler$1.run(FIFOScheduler.java:139)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:745)\n"
-          }
-        ]
-      },
-      "apps": [],
-      "jobName": "paragraph_1493819429899_244281619",
-      "id": "20170503-135029_1326527749",
-      "dateCreated": "May 3, 2017 1:50:29 PM",
-      "dateStarted": "May 4, 2017 2:57:21 AM",
-      "dateFinished": "May 4, 2017 3:03:37 AM",
-      "status": "ERROR",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%spark2.r\nfoo \u003c- TRUE\nprint(foo)",
-      "user": "admin",
-      "dateUpdated": "May 3, 2017 7:46:35 PM",
-      "config": {
-        "colWidth": 12.0,
-        "enabled": true,
-        "results": {},
-        "editorSetting": {
-          "language": "r"
-        },
-        "editorMode": "ace/mode/r"
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "jobName": "paragraph_1493821843625_1129218292",
-      "id": "20170503-143043_542812040",
-      "dateCreated": "May 3, 2017 2:30:43 PM",
-      "dateStarted": "May 3, 2017 7:46:35 PM",
-      "dateFinished": "May 3, 2017 7:56:02 PM",
-      "status": "ABORT",
-      "progressUpdateIntervalMs": 500
-    },
-    {
-      "text": "%spark2.r\n",
-      "user": "admin",
-      "dateUpdated": "May 3, 2017 2:35:42 PM",
+      "dateUpdated": "May 5, 2017 11:34:28 AM",
       "config": {},
       "settings": {
         "params": {},
         "forms": {}
       },
       "apps": [],
-      "jobName": "paragraph_1493822142293_-427077329",
-      "id": "20170503-143542_1550397091",
-      "dateCreated": "May 3, 2017 2:35:42 PM",
+      "jobName": "paragraph_1493984068686_-450218528",
+      "id": "20170505-113428_2123878223",
+      "dateCreated": "May 5, 2017 11:34:28 AM",
       "status": "READY",
       "progressUpdateIntervalMs": 500
     }
@@ -213,13 +92,13 @@
   "name": "Chicago Crime Data/Analysis",
   "id": "2CGFW37VW",
   "angularObjects": {
-    "2CE4NYR81:shared_process": [],
-    "2CFUAQU1U:shared_process": [],
-    "2CF8EF3V2:shared_process": [],
-    "2CH64TK8H:shared_process": [],
-    "2CHPECDR1:shared_process": [],
-    "2CEC7B8TD:shared_process": [],
-    "2CH9BFGYP:shared_process": []
+    "2CHZ2WMPW:shared_process": [],
+    "2CGB1CQB7:shared_process": [],
+    "2CG5KCN8E:shared_process": [],
+    "2CHWT389D:shared_process": [],
+    "2C4U48MY3_spark2:shared_process": [],
+    "2CEFSUGQ8:shared_process": [],
+    "2CFMUF1G7:shared_process": []
   },
   "config": {},
   "info": {}
